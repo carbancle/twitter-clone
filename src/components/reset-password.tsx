@@ -2,7 +2,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import styles from "../css/Auth.module.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 
 export default function ResetPassword() {
@@ -41,6 +41,14 @@ export default function ResetPassword() {
         <input className={styles.input} type="submit" value={isLoading ? "Loading..." : "Change Password"} />
       </form>
       {error !== "" ? <span className={styles.error}>{error}</span> : null}
+      <span className={styles.switcher}>
+        Remember Password? {" "}
+        <Link to="/login">Log in &rarr;</Link>
+      </span>
+      <span className={styles.switcher}>
+        Don't have an account? {" "}
+        <Link to="/create-account">Create one &rarr;</Link>
+      </span>
     </div>
   );
 }

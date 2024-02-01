@@ -59,7 +59,7 @@ export default function CreateAccount() {
       {error !== "" ? <span className={styles.error}>{error}</span> : null}
       <span className={styles.switcher}>
         Already an account? {" "}
-        <Link to="/login">Log in</Link>
+        <Link to="/login">Log in &rarr;</Link>
       </span>
       <span className={styles.switcher}>
         Forget Password? <Link to="/reset-password">Reset Password &rarr;</Link>
