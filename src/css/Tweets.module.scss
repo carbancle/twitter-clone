@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 15px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+
+  &.photoDiv {
+    margin: 0 auto;
+  }
+
+  &.nonPhotoDiv {
+    margin: 0 auto;
+    justify-content: center;
+
+    .label {
+      padding: 10px 14px;
+      color: #1d9bf0;
+      text-align: center;
+      border-radius: 20px;
+      border: 1px solid #1d9bf0;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+}
+
+.username {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.payload {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+}
+
+.deleteButton {
+  background-color: tomato;
+  color: white;
+  font-weight: 600;
+  border: 0;
+  font-size: 12px;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.editButton {
+  // background-color: tomato;
+  color: #333;
+  font-weight: 600;
+  border: 0;
+  font-size: 12px;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:first-child {
+    margin-right: 6px;
+  }
+}
+
+.positionDiv {
+  position: relative;
+
+  span {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    font-size: 14px;
+    text-align: center;
+  }
+}
+
+.editPhoto{
+  opacity: .3;
+
+  +span {
+    cursor: pointer;
+  }
+}
+
+.fileInput {
+  display: none;
+}
+
+.editTextarea {
+  border: 1px solid white;
+  padding: 8px 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: black;
+  width: 100%;
+  resize: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  overflow-y: scroll;
+  /* 스크롤바 제거 */
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
+  &::placeholder {
+    font-size: 16px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  &:focus {
+    outline: none;
+    border-color: #1d9bf0;
+  }
+
+}
