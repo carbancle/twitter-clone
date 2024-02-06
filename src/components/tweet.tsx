@@ -2,16 +2,17 @@ import { ITweet } from "./timeline";
 import styles from "../css/Tweets.module.scss"
 import { auth, db, storage } from "../firebase";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { deleteObject, ref, uploadBytes } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 
 export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
+  const user = auth.currentUser;
+
   const [isLoading, setLoading] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [editPhoto, setEditPhoto] = useState(photo);
   const [editTweet, setEditTweet] = useState(tweet);
   const [file, setFile] = useState<File | null>(null);
-
-  const user = auth.currentUser;
 
   const onEdit = () => {
     // edit 모드 활성화 edit 버튼 > save 버튼으로 변경됨
@@ -28,14 +29,14 @@ export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
       if (user?.uid !== userId) return;
       setLoading(true);
       // 이미지가 있으면, 이미지 경로를 확인하여 해당 경로에 업로드 실행,
-      // 덮어쓰기가 실행되어 delete 필요하지 않고 이미지 경로 또한 변하지 않는다.
       if (file) {
-        const photoRef = ref(storage, `tweets/${user.uid}-${user.displayName}/${id}`);
-        // update image
-        await uploadBytes(photoRef, file);
-        // update tweet
+        const locationRef = ref(storage, `tweets/${user.uid}-${user.displayName}/${id}`);
+        const result = await uploadBytes(locationRef, file);
+        const editPhotoUrl = await getDownloadURL(result.ref);
+        setEditPhoto(editPhotoUrl);
         await updateDoc(doc(db, "tweets", id), {
           tweet: editTweet,
+          photo: editPhotoUrl,
           updatedAt: Date.now(),
         });
         setFile(null);
@@ -114,7 +115,7 @@ export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
           {edit ?
             <div className={styles.positionDiv}>
               <label htmlFor="editFile">
-                <img src={photo} alt=""
+                <img src={editPhoto ?? photo} alt=""
                   className={`${styles.photo} ${styles.editPhoto}`}
                 />
                 <span>{file ? "Photo changed ✅" : "Change photo"}</span>

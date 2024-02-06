@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.avatarUpload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  overflow: hidden;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #1d9bf0;
+  cursor: pointer;
+
+  svg {
+    width: 50px;
+  }
+}
+
+.avatarImg {
+  width: 100%;
+}
+
+.avatarInput {
+  display: none;
+}
+
+.name {
+  font-size: 22px;
+}
+
+.tweets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
